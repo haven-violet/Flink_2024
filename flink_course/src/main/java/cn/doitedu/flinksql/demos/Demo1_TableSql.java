@@ -18,7 +18,7 @@ public class Demo1_TableSql {
                 ")\n" +
                 "with (\n" +
                 "'connector' = 'kafka',\n" +
-                "'topic' = 'flink-sql-1',\n" +
+                "'topic' = 'flink-sql-2',\n" +
                 "'properties.bootstrap.servers' = 'hadoop102:9092',\n" +
                 "'properties.group.id' = 'g1',\n" +
                 "'scan.startup.mode' = 'earliest-offset',\n" +
@@ -27,7 +27,9 @@ public class Demo1_TableSql {
                 "'json.ignore-parse-errors' = 'true'\n" +
                 ")");
 
-        tableEnv.executeSql("select gender, avg(age) as avg_age from t_kafka group by gender").print();
+//        tableEnv.executeSql("select gender, avg(age) as avg_age from t_kafka group by gender").print();
+        tableEnv.executeSql("select get_json_field(name, '$.class_id') from t_kafka ").print();
+
 
     }
 }
